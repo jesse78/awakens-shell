@@ -5,6 +5,7 @@ This uses the chat website "https://awakens.me/" to grab all the JS Files needed
 What this isn't:
 
 A full-fledged chat client: It literally does nothing.
+
 Useful: This is done merely to show off the UI and the animations.
 
 What this is:
