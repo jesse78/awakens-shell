@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>A Pen by  jesse78</title>
+  
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <link id="icon" rel="icon" type="image/png" href="/images/awakenslogo.png">
+        <title>Awakens - The chat that never sleeps</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#3a3a3a">
+        <meta name="keywords" content="chat,awakens,awakens.me">
+        <meta name="description" content="Awakens is an online web-based chat client with multiple different styles, games and features. That is constantly updating and growing over time.">
+        <link rel="stylesheet" href="/theme.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat|Droid+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material%20Icons">
+        <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/emojione/2.2.7/assets/css/emojione.min.css">
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <script src="/dollarSign.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js"></script>
+    </head>
+
+    <body>
+        <main>
+            <div id="main-container">
+                <div id="leftMenu"></div>
+                <div id="flexOne">
+                    <div id="infobar">
+                        <div>Chickens wings</div>
+                    </div>
+                    <div id="main-area">
+                        <div id="messages-background">
+                            <div id="center-text"></div>
+                        </div>
+                        <div id="cursor-container"></div>
+                        <div id="messages"></div>
+                    </div>
+                    <div id="input-bar">
+                        <textarea autocomplete="off" onblur="socket.emit('typing', false)" autofocus id="ac" placeholder="Type anything then press enter, or drag image here."></textarea>
+                        <div id="toggle-menu"><span>menu</span></div>
+                    </div>
+                </div>
+                <div id="menu-container">
+                
+                    <div id="menu-tabs" class="menu-icons">
+                        <button value="userList">group</button>
+                        <button value="mySettings">settings</button>
+                        <button value="directMessages" id="chatTab" onclick="this.className = '';">chat</button>
+                        <button value="channelSettings">build</button>
+                        <button value="activeChannels">list</button>
+                    </div>
+                    
+                    <div id="menu-panels">
+                        <div id="userList" class="rootPanel">
+                            <div id="userinfo">
+                                <span id="countUsers"></span>
+                                <span id="sortUsers">reorder</span>
+                            </div>
+                            <div id="listedUsers"></div>
+                        </div>
+                        <div id="mySettings" class="rootPanel">
+                            <div id="rootUserMenu" class="menuPanel rootOfPanel">
+                                <ul></ul>
+                            </div>
+                            
+                            <div id="stylingPanels" class="menuPanel menuContainer">
+                                <div class="goBack">
+                                    <span class="goBackArrow"></span>
+                                </div>
+                                <div id="styleProfiles"></div>
+                                <div id="newProfileSelect">new profile</div>
+                                <div id="styleOptions">
+                                    <div class="menuPanel subMenu" id="styleText">
+                                        <h2>Text</h2>
+                                        <div class="textStyle">
+                                            <div class="styleAtt" id="stylefont">
+                                                <h3>Font - <a target="_blank" href="https://fonts.google.com/">Pick one from here</a></h3> 
+                                                <input class="customInput" placeholder="Font name here" />
+                                                <button class="customButtonOne clearStyle">Clear</button>
+                                            </div>
+                                            <div class="styleAtt" id="stylecolor">
+                                                <h3>Color</h3> 
+                                                <input class="jscolor">
+                                                <button class="customButtonOne clearStyle">Clear</button>
+                                            </div>
+                                            <div class="styleAtt" id="stylebgcolor">
+                                                <h3>Background Color</h3> 
+                                                <input class="jscolor">
+                                                <button class="customButtonOne clearStyle">Clear</button>
+                                            </div>
+                                            <div class="styleAtt" id="styleglow">
+                                                <h3>Glow</h3> 
+                                                <input class="jscolor">
+                                                <button class="customButtonOne clearStyle">Clear</button>
+                                            </div>
+                                        </div>
+                                        <button id="saveProfile" class="customButtonOne">Save to profile</button>
+                                    </div>
+                                    <div class="menuPanel subMenu" id="styleHats">
+                                        <div id="displayHats">
+                                            <h2>Hats you own</h2>
+                                            <div id="ownedHats"></div>
+                                            <h2>All hats</h2>
+                                            <div id="allHats"></div>
+                                        </div>
+                                    </div>
+                                    <div class="menuPanel subMenu" id="styleCursors">
+                                        <div id="customCursor">
+                                            <button class="customButton">Upload custom cursor</button>
+                                            <div style="display: none;" id="uploadTextarea">
+                                                <p>Upload cursors with base64</p>
+                                                <textarea style="width: 100%;" placeholder="Paste base64 here"></textarea>
+                                            </div>
+                                        </div>
+                                        <div id="displayCursors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="userSettingPanels" class="menuPanel menuContainer">
+                                <div class="goBack">
+                                    <span class="goBackArrow"></span>
+                                </div>
+                                    
+                                <div class="menuPanel subMenu toggles" id="toggles">
+                                        <ul>
+                                            <li id="toggleUI-background">
+                                                <h2>Background</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                                <button class="toggleButton" id="setCustom">Custom</button>
+                                                <div class="customPick">
+                                                    <input id="customBackgroundInput" style="width: 92%; margin-left: 8px;" placeholder="Background URL" class="customInput" />
+                                                    <button id="submitCustomBackground" style="width: 100%;" class="customButton">Submit</button>
+                                                </div>
+                                            </li>
+                                            <li id="toggleUI-images">
+                                                <h2>Images</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                            </li>
+                                            <li id="toggleUI-12h">
+                                                <h2>TimeStamp</h2>
+                                                <button class="toggleButton" id="setTrue">12hr</button>
+                                                <button class="toggleButton" id="setFalse">24hr</button>
+                                            </li>
+                                            <li id="toggleUI-filters">
+                                                <h2>Filters</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                            </li>
+                                            <li id="toggleUI-cursors">
+                                                <h2>Cursors</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                            </li>
+                                            <li id="toggleUI-msg">
+                                                <h2>Center Message</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                            </li>
+                                            <li id="toggleUI-mute">
+                                                <h2>Mute</h2>
+                                                <button class="toggleButton" id="setTrue">Enable</button>
+                                                <button class="toggleButton" id="setFalse">Disable</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <div class="menuPanel subMenu" id="videoMode">
+                                        <div class="toggleSlider">
+                                            <h2>Enable Video Mode</h2>
+                                            <label>
+                                                <input id="tglvideo" type="checkbox"/>
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div id="videoModeControls"> 
+                                            <button style="width:100%;" class="customButton">Add a video</button>
+                                            <input placeholder="YouTube video URL" class="customInputDark" style="margin-top: 10px;" />
+                                        </div>
+                                        <ul id="playlist"></ul>
+                                    </div>
+                                <div class="menuPanel subMenu" id="security">
+                                        <h2>Change Password</h2>
+                                        <input id="oldpass" type="password" class="customInput" placeholder="Old password" />
+                                        <input id="newpass" type="password" class="customInput" placeholder="New password" />
+                                        <button id="updatePassword" class="customButtonOne">Update password</button>
+
+                                        <h2>Security question (optional)</h2>
+                                        <p>Make sure your Q and A is secure.</p>
+                                        <input style="width: 90%;margin: 4px 0px 2px 0px;" placeholder="Security question" class="customInput" id="QuestionandA" />
+                                        <input style="width: 90%;margin: 2px 0px 8px 0px;" placeholder="Security answer" class="customInput" id="QandAnswer" />
+                                        <button id="updateQA" class="customButtonOne">Update security question</button>
+                                    </div>
+                                <div class="menuPanel subMenu" id="changeNick">
+                                    <h2 class="reg">Changing nick will log you out</h2>
+                                    <input id="changeNickInput" style="width: 80%;" class="customInput" placeholder="nickname" />
+                                    <button id="submitNick" class="customButtonOne">Change Nick</button>
+                                </div>
+                                <div id="loginMenu" class="menuPanel subMenu">
+                                    <input id="loginUsernameInput" style="width: 80%;" class="customInput" placeholder="username" />
+                                    <input id="loginPasswordInput" style="width: 80%;" class="customInput" placeholder="password" type="password" />
+                                    <button id="submitLogin" class="customButtonOne">Login</button>
+                                    <button id="forGotPass" class="customButton">Forgot password?</button>
+                                </div>
+                                <div id="forgotPass" class="menuPanel subMenu">
+                                    <h2>Enter username and answer security question</h2>
+                                    <input id="recoverPassUsername" style="width: 80%;" class="customInput" placeholder="Username" />
+                                    <button id="getQuestion" class="customButtonOne">Get Question</button>
+                                    <h2 id="theQuestion"></h2>
+                                    <input id="recoverPassAnswer" style="width: 80%;" class="customInput" placeholder="answer" />
+                                    <button id="submitAnswer" class="customButtonOne">Answer</button>
+                                </div>
+                                <div id="registerMenuPanel" class="menuPanel subMenu">
+                                        <h2>Register</h2>
+                                        <input id="registerNickname" style="margin: 4px 0px 4px 0px;" class="customInput" placeholder="username" />
+                                        <input id="registerPassword" style="margin: 4px 0px 4px 0px;" class="customInput" placeholder="password" type="password" />
+                                        <input id="confirmPassword" style="margin: 4px 0px 4px 0px;" class="customInput" placeholder="confirm password" type="password" />
+                                        <h2>Security question (optional)</h2>
+                                        <p>Leave blank if you don't want a security question</p>
+                                        <input id="registerQuestion" style="margin: 4px 0px 4px 0px;" class="customInput" placeholder="Question?"/>
+                                        <input id="registerAnswer" style="margin: 4px 0px 8px 0px;" class="customInput" placeholder="Answer!"/>
+                                        <button id="submitRegister" class="customButtonOne">Register</button>
+                                    </div>
+                            </div>
+                        </div>
+                        <div id="directMessages" class="rootPanel">
+                            <div class="someSpace">
+                                <input class="customInput" id="pmnick" placeholder="Username"/>
+                                <button class="customButtonOne">message</button>
+                            </div>
+                            <div id="miniPM"></div>
+                        </div>
+                        <div id="channelSettings" class="rootPanel">                            
+                            <div id="unowned" style="display:block;">
+                                <h2 style="text-align: center;">Claim this channel as your own</h2>
+                                <button id="claimchannel">Claim</button>
+                            </div>
+                            <div id="owned" style="display:none;">
+                                <div id="settingsMenu" class="menuPanel rootOfPanel">
+                                    <ul></ul>
+                                </div>
+                                
+                                <div id="subSettingsMenu" class="menuPanel menuContainer">
+                                    <div class="goBack">
+                                        <span class="goBackArrow"></span>
+                                    </div>
+                                    <div id="manageRoles" class="menuPanel subMenu">
+                                        <div>
+                                            <h2>Admins</h2>
+                                            <ul id="listRole-admin"></ul>
+                                        </div>
+                                        <div>
+                                            <h2>Mods</h2>
+                                            <ul id="listRole-mod"></ul>
+                                        </div>
+                                    </div>
+                                    <div id="manageCommands" class="menuPanel subMenu">
+                                        <div>
+                                            <h2>Channel Owner</h2>
+                                            <ul id="listcmd-channelOwner"></ul>
+                                        </div>
+                                        <div>
+                                            <h2>Admin</h2>
+                                            <ul id="listcmd-admin"></ul>
+                                        </div>
+                                        <div>
+                                            <h2>Mod</h2>
+                                            <ul id="listcmd-mod"></ul>
+                                        </div>
+                                        <div>
+                                            <h2>Basic</h2>
+                                            <ul id="listcmd-basic"></ul>
+                                        </div>
+                                    </div>
+                                    <div id="chnldefaults" class="menuPanel subMenu">
+                                        <ul>
+                                            <li>
+                                                <h2>Channel Font</h2>
+                                                <input id="chnlfont" placeholder="Droid Sans" />
+                                                <button id="loadfont" style="display: none;width:100%;margin-top: 10px;" class="customButton">Load channel font</button>
+                                            </li>
+                                            <li class="toggleSlider">
+                                                <h2>Filters</h2>
+                                                <div id="tglfilter" class="tgl">
+                                                    <input type="checkbox"/>
+                                                    <span class="slider"></span>
+                                                </div>
+                                                <h2>Center message</h2>
+                                                <div id="tglmsg" class="tgl">
+                                                    <input type="checkbox"/>
+                                                    <span class="slider"></span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <h2>Style Limit</h2>
+                                                <input type="number" id="stylelimit" min="0" max="50" value="6" />
+                                                <button id="loadstylelimit" class="customButtonOne">Update limit</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="wordfilter" class="menuPanel subMenu">
+                                        <button id="submitFilter" class="customButton">Add new filter</button>
+
+                                        <div id="inputreplaceh">
+                                            <input placeholder="Replace this" />
+                                            <input placeholder="With this" />
+                                        </div>
+
+                                        <table id="filteredWords"></table>
+                                    </div>
+                                    <div id="chnltheme" class="menuPanel subMenu">
+                                        <div class="textStyle" style="margin-left: 0px">
+                                            <div class="styleAtt">
+                                                <h3>Banner</h3> 
+                                                <p>Must not exceed 300x64</p> 
+                                                <banner></banner> 
+                                                <div style="margin: 8px 0px 8px 0px;">
+                                                    <input class="customInput" placeholder="Image URL" />
+                                                    <button id="saveBanner" class="customButtonOne">Send Image</button>
+                                                </div>
+                                            </div>
+                                            <h2>Menu</h2>
+                                            <div class="styleAtt">
+                                                <h3>Primary</h3> 
+                                                <input name="primenu" class="jscolor">
+                                            </div>
+                                            <div class="styleAtt">
+                                                <h3>Secondary</h3> 
+                                                <input name="secmenu" class="jscolor">
+                                            </div>
+                                            <h2>Input Bar</h2>
+                                            <div class="styleAtt">
+                                                <h3>Inputbar</h3> 
+                                                <input name="inputbar" class="jscolor">
+                                            </div>
+                                            <div class="styleAtt">
+                                                <h3>MenuToggle</h3> 
+                                                <input name="menutoggle" class="jscolor">
+                                            </div>
+                                            <h2>Messages</h2>
+                                            <div class="styleAtt">
+                                                <h3>General Message</h3> 
+                                                <input name="generalmsg" class="jscolor">
+                                            </div>
+                                            <div class="styleAtt">
+                                                <h3>Action Message</h3> 
+                                                <input name="actionmsg" class="jscolor">
+                                            </div>
+                                            <button id="saveChnlTheme" class="customButtonOne">Save</button>
+                                        </div>
+                                    </div>
+                                    <div id="chnlbackground" class="menuPanel subMenu">
+                                        <div style="text-align: right;">
+                                            <button id="showBackgroundSetter" class="customButtonOne">New Background</button>
+                                        </div>
+                                        <h2>Saved background(s)</h2>
+                                        <div id="savedBackgrounds"></div>
+                                    </div>
+                                    <div id="chnlbuildbackground" class="menuPanel subMenu">
+                                        <h2>Background name</h2>
+                                        <input id="backgroundName" class="customInput minWidth" placeholder="Background-1" />
+                                        <h2>Raw CSS</h2>
+                                        <input id="cssBackgroundInput" class="customInput minWidth" placeholder="CSS" />
+                                        <div>
+                                            <button class="customButtonOne">Preview</button>
+                                            <button id="saveBackground" class="customButtonOne">Save</button>
+                                        </div>
+                                    </div>
+                                    <div id="joinnames" class="menuPanel subMenu">
+                                        <div>
+                                            <h2>Adjectives</h2>
+                                            <button id="submitadjective" class="customButton">add adjective</button>
+                                            <input id="adjectiveinput" class="customInputDark" placeholder="Adjective"/>
+                                            <ul id="listadjective"></ul>
+                                        </div>
+                                        <div>
+                                            <h2>Nouns</h2>
+                                            <button id="submitnoun" class="customButton">add noun</button>
+                                            <input id="nouninput" class="customInputDark" placeholder="Noun"/>
+                                            <ul id="listnoun"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="activeChannels" class="rootPanel">
+                            <div class="sortBtn">
+                                <button id="showStar" class="selectedButton">Starred</button>
+                                <button id="showAll">All</button>
+                            </div>
+                            
+                            <div class="di" id="sorter">
+                                <div id="channelSearchSelect">
+                                    <span id="searchKey" style="vertical-align: top;">Name</span>
+                                    <span style="font-family: Material Icons;vertical-align: top;font-weight: bold;">arrow_drop_down</span>
+                                </div>
+                                <input id="searcher" placeholder="Search" />
+                                <button>Search</button>
+                            </div>
+                            
+                            <ul></ul>
+                        </div>
+                    </div>
+                    <div id="commandLog">
+                        <div id="topTab">Server Feed<span>X</span></div>
+                        <div id="serverMessages"></div>
+                    </div>
+                    <div id="bottom-menu-tabs" class="menu-icons">
+                        <button value="userList">live_tv</button>
+                        <button value="userList">info</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/media.js"></script>
+        <script src="/dateFormat.js"></script>
+        <script src="/parser.js"></script>
+        <script src="/menu.js"></script>
+        <script src="/client.js"></script>
+        <script src="/commands.js"></script>
+        <script src="/cursors.js"></script>
+    </body>
+
+</html>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js'></script>
+<script src='https://awakens.me/client.js'></script>
+<script src='https://awakens.me/commands.js'></script>
+<script src='https://awakens.me/cursors.js'></script>
+<script src='https://awakens.me/dateFormat.js'></script>
+<script src='https://awakens.me/dollarSign.js'></script>
+<script src='https://awakens.me/media.js'></script>
+<script src='https://awakens.me/menu.js'></script>
+<script src='https://awakens.me/parser.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/lib/js/emojione.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jscolor/2.0.4/jscolor.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/foreach/2.0.5/index.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/express-minify@1.0.0/index.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/nodejs-mysql@0.1.3/index.min.js'></script>
+<script src='https://cdn.jsdelivr.net/combine/npm/express-minify@1.0.0,npm/asynckit@0.4.0,npm/asynckit@0.4.0/bench.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/jquery-deferred@0.3.1/index.min.js'></script>
+
+  
+
+</body>
+
+</html>
